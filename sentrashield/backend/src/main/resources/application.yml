@@ -1,0 +1,27 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    url: jdbc:postgresql://postgres:5432/${POSTGRES_DB:sentrashield}
+    username: ${POSTGRES_USER:sentrashield}
+    password: ${POSTGRES_PASSWORD:sentrashield}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: none
+
+app:
+  jwt:
+    # Dev-only default -- override with the JWT_SECRET env var for any real deployment.
+    secret: ${JWT_SECRET:dev-only-secret-key-please-override-in-real-deployments-0123456789}
+    expiration-ms: ${JWT_EXPIRATION_MS:3600000}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+  endpoint:
+    health:
+      show-details: always
